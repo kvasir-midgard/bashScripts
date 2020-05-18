@@ -1,0 +1,69 @@
+#!/bin/bash
+
+### prints line across mixinal ###
+print_line() {
+	printf "%$(tput cols)s\n"|tr ' ' '-'
+}
+
+while true; do
+	
+	### List options ###
+	echo ""
+	echo "  Computer Power Options"
+	print_line
+	echo "  l) Log Out    k) Lock Screen    p) Poweroff"
+	echo "  r) Restart    s) Suspend        h) Hibernate"
+	echo "  q) Quit"
+	echo ""
+	
+	printf "  user input: "
+	read -a OPTIONS
+	
+	for OPT in ${OPTIONS[@]}; do
+		
+		case "$OPT" in
+			[1l])
+				echo ""
+				echo "  Log Out"
+				openbox --exit
+				exit 1
+				;;
+			[2k])
+				echo ""
+				echo "  Lock Screen"
+				dm-tool lock
+				exit 1
+				;;
+			[3p])
+				echo ""
+				echo "  Poweroff"
+				systemctl poweroff
+				exit 1
+				;;
+			[4r])
+				echo ""
+				echo "  Reboot"
+				systemctl reboot
+				exit 1
+				;;
+			[5s])
+				echo ""
+				echo "  Suspend"
+				systemctl suspend
+				exit 1
+				;;
+			[6h])
+				echo ""
+				echo "  Hibernate"
+				systemctl hibernate
+				exit 1
+				;;
+			[7q])
+				exit 1
+				;;
+			*)
+				echo "(!) choice invalid "
+				;;
+		esac
+	done
+done

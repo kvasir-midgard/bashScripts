@@ -1,0 +1,53 @@
+#!/bin/bash
+
+### prints line across mixinal ###
+print_line() {
+	printf "%$(tput cols)s\n"|tr ' ' '-'
+}
+
+
+### List options ###
+echo ""
+echo "Log Out User"
+print_line
+echo "1) Shutdown"
+echo "2) Reboot"
+echo "3) Suspend"
+echo "4) Logout"
+echo "q) Quit"
+echo ""
+
+printf "user input: "
+read -a OPTIONS
+
+for OPT in ${OPTIONS[@]}; do
+	
+	case "$OPT" in
+		1)
+			echo ""
+			echo "Shutting Down Now "
+			/sbin/poweroff
+			;;
+		2)
+			echo ""
+			echo "Rebooting Now "
+			/sbin/reboot
+			;;
+		3)
+			echo ""
+			echo "Suspending Now "
+			xfce4-session-logout --suspend
+			;;
+		4)
+			echo ""
+			echo "Logging Out Now "
+			xfce4-session-logout --logout
+			;;
+		q)
+			exit 1
+			;;
+		*)
+			echo "(!) choice invalid "
+			;;
+	esac
+done
